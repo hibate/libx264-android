@@ -7,6 +7,18 @@
 
 ## 编译
 
+下载并解压缩 libx264 源码，修改其中的 `configure` 文件，并屏蔽如下部分:
+
+```
+if cc_check 'math.h' '' 'log2f(2);' ; then
+    define HAVE_LOG2F
+fi
+```
+
+备注: 宏定义 `HAVE_LOG2F` 的启用会导致 NDK 编译时出现 undefined reference to 'log2f' 异常。
+
+执行以下命令编译:
+
 ```sh
 $ export ANDROID_NDK="<path to your ndk directory>"
 $ ./build_android.sh <path to libx264 source directory>
